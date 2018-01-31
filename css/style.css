@@ -55,6 +55,9 @@ input[type="checkbox"]:checked + label::before {
 .shopping-list {
     list-style: none;
 }
+.shopping-list label {
+    position: relative;
+}
 
 .add-form {
     margin-top: 40px;
@@ -83,4 +86,27 @@ input[type="checkbox"]:checked + label::before {
     border: none;
     color: white;
     font-size: 26px;
+}
+
+
+.delete-button,
+.edit-button {
+    text-decoration: none;
+    color: #333;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 60px;
+}
+.edit-button {
+    transform: translateX(-100%);
+}
+.delete-button i,
+.edit-button i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 18px;
+    transform: translate(-50%, -50%);
 }

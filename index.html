@@ -20,9 +20,29 @@
     
     
         <ul class="shopping-list jsShoppingList">
-            <li>
+            <li data-id="1">
                 <input type="checkbox" id="item-1">
-                <label for="item-1">Cartofi</label>
+                <label for="item-1">
+                    Cartofi
+                    <a href="" class="edit-button jsEditButton">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </a>
+                    <a href="" class="delete-button jsDeleteButton">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </a>
+                </label>
+            </li>
+            <li data-id="2">
+                <input type="checkbox" id="item-2">
+                <label for="item-2">
+                    Morcovi
+                    <a href="" class="edit-button jsEditButton">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </a>
+                    <a href="" class="delete-button jsDeleteButton">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </a>
+                </label>
             </li>
             
         </ul>
@@ -30,12 +50,13 @@
         <form action="" class="add-form jsAddForm">
             <label for="">Adauga un item</label>
 
-            <div class="add-item">
+            <div class="add-item jsAddItem">
                 <input type="text" class="jsAddField">
                 <button type="submit">
                     <i class="fa fa-plus" aria-hidden="true"></i>
                 </button>
             </div>
+
 
         </form>
 

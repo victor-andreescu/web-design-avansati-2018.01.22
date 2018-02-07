@@ -41,7 +41,26 @@ $('.jsAddForm').on("submit", function (event) {
 
         // construim string-ul ce contine codul pentru crearea item-ului
         // avem grija sa inlocuim valorile noi
-        var newListItem = '<li data-id="' + newId + '"><input type="checkbox" id="' + idValue + '"><label for="' + idValue + '">' + newValue + '<a href="" class="edit-button jsEditButton"><i class="fa fa-pencil" aria-hidden="true"></i></a><a href="" class="delete-button jsDeleteButton"><i class="fa fa-trash" aria-hidden="true"></i></a></label></li>';
+        var $newListItem = $('<li data-id=""><input type="checkbox" id=""><label for=""><span class="jsItemValue"></span><a href="" class="edit-button jsEditButton"><i class="fa fa-pencil" aria-hidden="true"></i></a><a href="" class="delete-button jsDeleteButton"><i class="fa fa-trash" aria-hidden="true"></i></a></label></li>');
+        
+    //     var $newListItem = $(`
+    // <li data-id="1">
+    //     <input type="checkbox" id="item-1">
+    //     <label for="item-1">
+    //         <span class="jsItemValue">Cartofi</span>
+    //         <a href="" class="edit-button jsEditButton">
+    //             <i class="fa fa-pencil" aria-hidden="true"></i>
+    //         </a>
+    //         <a href="" class="delete-button jsDeleteButton">
+    //             <i class="fa fa-trash" aria-hidden="true"></i>
+    //         </a>
+    //     </label>
+    // </li>`)
+
+        $newListItem.attr('data-id', newId);
+        $newListItem.find('input[type="checkbox"]').attr('id', idValue);
+        $newListItem.find('label').attr('for', idValue);
+        $newListItem.find('.jsItemValue').text(newValue);
 
         // a doua modalitate de a crea elemente HTML cu ajutorul jQuery
         // var newListItem = $('<li></li>')
@@ -57,7 +76,7 @@ $('.jsAddForm').on("submit", function (event) {
         //                     );
 
         // adaugam elementul creat mai sus la sfarsitul listei de cumparaturi
-        $('.jsShoppingList').append(newListItem);
+        $('.jsShoppingList').append($newListItem);
 
         // golim campul formularului de adaugare
         $(this).find('.jsAddField').val('');
@@ -90,4 +109,67 @@ $('.jsShoppingList').on('click', '.jsDeleteButton', function (event) {
     // stergem elementul din lista cu ajutorul metodei jQuery remove()
     // cuvantul cheie this se refera la elementul care a declansat event listener-ul
     $(this).closest('li').remove();
+});
+
+
+if( $('.jsEditButton').length > 0 ) {
+
+    var $selectedItem = null;
+    // Event listener incepere editare
+    $('.jsShoppingList').on('click', '.jsEditButton', function(event) {
+        event.preventDefault();
+
+        $('.jsEditOverlay').addClass('is-visible');
+
+        $selectedItem = $(this).closest('li');
+
+        var textToEdit =  $selectedItem.find('.jsItemValue').text();
+
+        $('.jsEditField').val( textToEdit );
+    });
+
+    $('.jsEditForm').on('submit', function(event) {
+        event.preventDefault();
+        
+        // var newValue = $('.jsEditField').val();
+        var newValue = $(this).find('.jsEditField').val();
+
+        $selectedItem.find('.jsItemValue').text(newValue);
+
+        $(this).closest('.overlay').removeClass('is-visible');
+
+    })
+}
+
+
+// Event listener inchidere modal
+$('.jsOverlayClose').on('click', function(event) {
+    event.preventDefault();
+    $(this).closest('.overlay').removeClass('is-visible');
+});
+
+
+$(window).on('keyup', function(event) {
+    if (event.which == 27 && $('.overlay.is-visible').length > 0) {
+        $('.overlay.is-visible').find('.jsOverlayClose').trigger('click');
+    }
+});
+
+
+
+
+$('.jsClearButton').on('click', function(event) {
+    event.preventDefault();
+
+    $('.jsClearOverlay').addClass('is-visible');
+});
+
+
+$('.jsClearList').on('click', function(event) {
+    event.preventDefault();
+
+    $('.jsShoppingList').html('');
+
+    $(this).closest('.overlay').find('.jsOverlayClose').trigger('click');
+    
 });

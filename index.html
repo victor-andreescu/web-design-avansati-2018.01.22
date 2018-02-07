@@ -12,18 +12,42 @@
 
 </head>
 <body>
+    <div class="overlay jsEditOverlay">
+        <div class="modal">
+            <a href="" class="modal-close jsOverlayClose">
+                <i class="fa fa-close"></i>
+            </a>
+            <h2>Editeaza</h2>
+            <form action="" class="jsEditForm">
+                <input type="text" class="jsEditField">
+                <button class="button">Salveaza</button>
+            </form>
+        </div>
+    </div>
+    <div class="overlay jsClearOverlay">
+        <div class="modal">
+            <a href="" class="modal-close jsOverlayClose">
+                <i class="fa fa-close"></i>
+            </a>
+            <h2>Sterge tot</h2>
+            <p>Sunteti sigur ca vreti sa stergeti toti itemii?</p>
+            <p>Datele nu vor putea fi recuperate.</p>
+            <a href="" class="button jsClearList">Sterge</a>
+        </div>
+    </div>
 
 
     <div class="wrap">
 
         <h1>Lista de cumparaturi</h1>
     
+        <a href="" class="button jsClearButton">Clear All</a>
     
         <ul class="shopping-list jsShoppingList">
             <li data-id="1">
                 <input type="checkbox" id="item-1">
                 <label for="item-1">
-                    Cartofi
+                    <span class="jsItemValue">Cartofi</span>
                     <a href="" class="edit-button jsEditButton">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                     </a>
@@ -35,7 +59,7 @@
             <li data-id="2">
                 <input type="checkbox" id="item-2">
                 <label for="item-2">
-                    Morcovi
+                    <span class="jsItemValue">Morcovi</span>
                     <a href="" class="edit-button jsEditButton">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                     </a>

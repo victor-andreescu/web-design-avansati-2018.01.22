@@ -1,3 +1,39 @@
+// var pidTimeout;
+var pidInterval;
+
+
+// $(document).on('load', function() {
+    $.ajax({
+        url: '/list-index.php',
+        method: 'get',
+        dataType: 'json',
+        beforeSend: function() {
+            $('.loader').slideDown();
+        },
+        success: function(data) {
+            $(data).each(function() {
+                console.log(this.name);
+                var $newListItem = $('<li data-id=""><input type="checkbox" id=""><label for=""><span class="jsItemValue"></span><a href="" class="edit-button jsEditButton"><i class="fa fa-pencil" aria-hidden="true"></i></a><a href="" class="delete-button jsDeleteButton"><i class="fa fa-trash" aria-hidden="true"></i></a></label></li>');
+
+                $newListItem.attr('data-id', this.id);
+                $newListItem.find('input[type="checkbox"]').attr('id', 'item-'+this.id);
+                $newListItem.find('label').attr('for', 'item-'+this.id);
+                $newListItem.find('.jsItemValue').text(this.name);
+
+                $('.jsShoppingList').append($newListItem);
+            });
+            
+            
+            // console.log(data);
+        },
+        complete: function() {
+            $('.loader').slideUp();
+        }
+    })
+// });
+
+
+
 // Event Listener pentru adaugare unui item in lista
 // Il aplicam pe formularul din partea de jos listei
 // cu declansare la evenimentul "submit"
@@ -81,6 +117,8 @@ $('.jsAddForm').on("submit", function (event) {
         // golim campul formularului de adaugare
         $(this).find('.jsAddField').val('');
 
+        $('.jsShoppingList').trigger('list-modified');
+
     } else {
         // daca nu am introdus o valoare in formularul de adaugare
         // verificam daca avem deja afisat mesajul de eroare
@@ -109,6 +147,8 @@ $('.jsShoppingList').on('click', '.jsDeleteButton', function (event) {
     // stergem elementul din lista cu ajutorul metodei jQuery remove()
     // cuvantul cheie this se refera la elementul care a declansat event listener-ul
     $(this).closest('li').remove();
+
+    $('.jsShoppingList').trigger('list-modified');
 });
 
 
@@ -146,6 +186,12 @@ if( $('.jsEditButton').length > 0 ) {
 $('.jsOverlayClose').on('click', function(event) {
     event.preventDefault();
     $(this).closest('.overlay').removeClass('is-visible');
+
+    if ( $(this).closest('.jsClearOverlay').length > 0 ) {
+        // clearTimeout(pidTimeout);
+        clearInterval(pidInterval);
+        $('.jsClearList').prop('disabled', true);
+    }
 });
 
 
@@ -162,6 +208,26 @@ $('.jsClearButton').on('click', function(event) {
     event.preventDefault();
 
     $('.jsClearOverlay').addClass('is-visible');
+
+    // pidTimeout = setTimeout(function() {
+    //     $('.jsClearList').prop('disabled', false);
+    // }, 5000);
+    var time = 2;
+
+    $('.jsCountdown').fadeIn().text(time);
+
+    pidInterval = setInterval(function(){
+        time--;
+        $('.jsCountdown').text(time);
+
+        if (time == 0) {
+            clearInterval(pidInterval);
+            $('.jsClearList').prop('disabled', false).find('.jsCountdown').fadeOut();   
+
+        }
+
+    }, 1000);
+
 });
 
 
@@ -169,7 +235,18 @@ $('.jsClearList').on('click', function(event) {
     event.preventDefault();
 
     $('.jsShoppingList').html('');
+    $('.jsShoppingList').trigger('list-modified');
 
     $(this).closest('.overlay').find('.jsOverlayClose').trigger('click');
     
 });
+
+
+$('.jsShoppingList').on('list-modified', function(event) {
+    // console.log('am modificat lista')
+    $('.jsListLength').text( $(this).find('li').length );
+});
+
+$('.jsListLength').text( $('.jsShoppingList li').length );
+// $(window).on('load', function(event) {
+// });

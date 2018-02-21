@@ -169,4 +169,44 @@ input[type="checkbox"]:checked + label::before {
     color: white;
     text-transform: uppercase;
     text-decoration: none;
+    cursor: pointer;
+}
+.button:disabled {
+    background-color: #e4e4e4;
+    color: #bebebe;
+    cursor: not-allowed;
+}
+
+
+
+
+.loader {
+    padding: 40px;
+    font-size: 48px;
+    text-align: center;
+    display: none;
+}
+.loader i {
+    animation-name: incarcare;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+@keyframes incarcare {
+    0% {
+        transform: rotateZ(0deg) scale(1);
+        /* opacity: 0; */
+        color: hsl(29, 93%, 48%);
+    }
+    50% {
+        transform: rotateZ(180deg) scale(1.2);
+        /* opacity: 1; */
+        color: hsl(197, 93%, 48%);
+    }
+    100% {
+        transform: rotateZ(360deg) scale(1);
+        /* opacity: 0; */
+        color: hsl(29, 93%, 48%);
+    }
 }

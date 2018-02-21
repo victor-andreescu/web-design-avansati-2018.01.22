@@ -24,6 +24,8 @@
             </form>
         </div>
     </div>
+
+
     <div class="overlay jsClearOverlay">
         <div class="modal">
             <a href="" class="modal-close jsOverlayClose">
@@ -32,7 +34,10 @@
             <h2>Sterge tot</h2>
             <p>Sunteti sigur ca vreti sa stergeti toti itemii?</p>
             <p>Datele nu vor putea fi recuperate.</p>
-            <a href="" class="button jsClearList">Sterge</a>
+            <button class="button jsClearList" disabled>
+                <span class="jsCountdown"></span>
+                Sterge
+            </button>
         </div>
     </div>
 
@@ -40,11 +45,17 @@
     <div class="wrap">
 
         <h1>Lista de cumparaturi</h1>
+
+        <p>Itemi in lista: <span class="jsListLength"></span></p>
     
         <a href="" class="button jsClearButton">Clear All</a>
     
+        <div class="loader">
+            <i class="fa fa-spinner" aria-hidden="true"></i>
+        </div>
+
         <ul class="shopping-list jsShoppingList">
-            <li data-id="1">
+            <!-- <li data-id="1">
                 <input type="checkbox" id="item-1">
                 <label for="item-1">
                     <span class="jsItemValue">Cartofi</span>
@@ -67,7 +78,7 @@
                         <i class="fa fa-trash" aria-hidden="true"></i>
                     </a>
                 </label>
-            </li>
+            </li> -->
             
         </ul>
 
